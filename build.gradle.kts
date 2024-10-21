@@ -2,19 +2,21 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     java
-    id("org.springframework.boot") version "3.2.5"
-    id("io.spring.dependency-management") version "1.1.4"
-    id("org.graalvm.buildtools.native") version "0.10.1"
+    id("org.springframework.boot") version "3.3.4"
+    id("io.spring.dependency-management") version "1.1.6"
+    id("org.graalvm.buildtools.native") version "0.10.3"
 
-    kotlin("jvm") version "1.9.23"
-    kotlin("plugin.spring") version "1.9.23"
+    kotlin("jvm") version "1.9.25"
+    kotlin("plugin.spring") version "1.9.25"
 }
 
 group = "santannaf.demo.spring-native.open-telemetry"
 version = "0.0.1"
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_21
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
 }
 
 repositories {
@@ -23,9 +25,9 @@ repositories {
 
 dependencyManagement {
     imports {
-        mavenBom("io.opentelemetry:opentelemetry-bom:1.37.0")
-        mavenBom("io.opentelemetry.instrumentation:opentelemetry-instrumentation-bom-alpha:2.3.0-alpha")
-        mavenBom("io.micrometer:micrometer-tracing-bom:1.2.5")
+//        mavenBom("io.opentelemetry:opentelemetry-bom:1.43.0")
+        mavenBom("io.opentelemetry.instrumentation:opentelemetry-instrumentation-bom:2.6.0")
+        mavenBom("io.micrometer:micrometer-tracing-bom:1.3.5")
     }
 }
 
@@ -43,8 +45,6 @@ dependencies {
 
     // Traces and some metrics
     implementation("io.opentelemetry.instrumentation:opentelemetry-spring-boot-starter")
-    implementation("io.opentelemetry:opentelemetry-sdk-extension-autoconfigure")
-    implementation("io.opentelemetry.instrumentation:opentelemetry-jdbc")
     implementation("io.opentelemetry.contrib:opentelemetry-samplers:1.35.0-alpha")
     implementation("io.opentelemetry:opentelemetry-extension-kotlin")
 
