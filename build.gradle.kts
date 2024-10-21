@@ -47,7 +47,6 @@ dependencies {
     implementation("io.opentelemetry.instrumentation:opentelemetry-spring-boot-starter")
     implementation("io.opentelemetry.contrib:opentelemetry-samplers:1.35.0-alpha")
     implementation("io.opentelemetry:opentelemetry-extension-kotlin")
-
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
