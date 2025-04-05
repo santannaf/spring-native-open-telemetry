@@ -1,13 +1,13 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     java
-    id("org.springframework.boot") version "3.3.4"
-    id("io.spring.dependency-management") version "1.1.6"
-    id("org.graalvm.buildtools.native") version "0.10.3"
+    id("org.springframework.boot") version "3.4.4"
+    id("io.spring.dependency-management") version "1.1.7"
+    id("org.graalvm.buildtools.native") version "0.10.6"
 
-    kotlin("jvm") version "1.9.25"
-    kotlin("plugin.spring") version "1.9.25"
+    kotlin("jvm") version "2.0.10"
+    kotlin("plugin.spring") version "2.0.10"
 }
 
 group = "santannaf.demo.spring-native.open-telemetry"
@@ -25,9 +25,9 @@ repositories {
 
 dependencyManagement {
     imports {
-//        mavenBom("io.opentelemetry:opentelemetry-bom:1.43.0")
-        mavenBom("io.opentelemetry.instrumentation:opentelemetry-instrumentation-bom:2.6.0")
-        mavenBom("io.micrometer:micrometer-tracing-bom:1.3.5")
+        mavenBom("io.opentelemetry:opentelemetry-bom:1.48.0")
+        mavenBom("io.opentelemetry.instrumentation:opentelemetry-instrumentation-bom:2.14.0")
+        mavenBom("io.micrometer:micrometer-tracing-bom:1.4.4")
     }
 }
 
@@ -45,15 +45,17 @@ dependencies {
 
     // Traces and some metrics
     implementation("io.opentelemetry.instrumentation:opentelemetry-spring-boot-starter")
-    implementation("io.opentelemetry.contrib:opentelemetry-samplers:1.35.0-alpha")
+    implementation("io.opentelemetry.contrib:opentelemetry-samplers:1.45.0-alpha")
     implementation("io.opentelemetry:opentelemetry-extension-kotlin")
+
+    // Unit Tests
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs += "-Xjsr305=strict"
-        jvmTarget = "21"
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.addAll("-Xjsr305=strict")
+        jvmTarget.set(JvmTarget.JVM_21)
     }
 }
 
