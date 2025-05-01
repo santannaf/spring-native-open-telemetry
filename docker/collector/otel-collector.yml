@@ -9,6 +9,20 @@ processors:
     send_batch_max_size: 1000
     send_batch_size: 100
     timeout: 10s
+  tail_sampling:
+    decision_wait: 10s
+    num_traces: 100
+    expected_new_traces_per_sec: 10
+    policies:
+      - name: error-traces
+        type: status_code
+        status_code:
+          - status_codes: ERROR
+          - status_codes: INFO
+      - name: probabilistic-sampler
+        type: probabilistic
+        probabilistic:
+          sampling_percentage: 10
 
 exporters:
   prometheusremotewrite:
@@ -43,7 +57,7 @@ service:
       exporters: [prometheusremotewrite]
     traces:
       receivers: [otlp]
-      processors: [batch]
+      processors: [tail_sampling,batch]
       exporters: [otlp/jaeger,zipkin,otlp/tempo]
     logs:
       receivers: [otlp]

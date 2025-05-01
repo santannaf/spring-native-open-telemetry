@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     java
-    id("org.springframework.boot") version "3.4.4"
+    id("org.springframework.boot") version "3.4.5"
     id("io.spring.dependency-management") version "1.1.7"
     id("org.graalvm.buildtools.native") version "0.10.6"
 
@@ -43,10 +43,13 @@ dependencies {
     implementation("io.micrometer:micrometer-tracing-bridge-otel")
     implementation("io.micrometer:micrometer-tracing")
 
+    // Traces
+    implementation("io.opentelemetry:opentelemetry-exporter-otlp")
+
     // Traces and some metrics
-    implementation("io.opentelemetry.instrumentation:opentelemetry-spring-boot-starter")
-    implementation("io.opentelemetry.contrib:opentelemetry-samplers:1.45.0-alpha")
-    implementation("io.opentelemetry:opentelemetry-extension-kotlin")
+//    implementation("io.opentelemetry.instrumentation:opentelemetry-spring-boot-starter")
+//    implementation("io.opentelemetry.contrib:opentelemetry-samplers:1.45.0-alpha")
+//    implementation("io.opentelemetry:opentelemetry-extension-kotlin")
 
     // Unit Tests
     testImplementation("org.springframework.boot:spring-boot-starter-test")
