@@ -17,12 +17,13 @@ processors:
       - name: error-traces
         type: status_code
         status_code:
-          - status_codes: ERROR
-          - status_codes: INFO
+          status_codes:
+            - ERROR
+            - OK
       - name: probabilistic-sampler
         type: probabilistic
         probabilistic:
-          sampling_percentage: 10
+          sampling_percentage: 100
 
 exporters:
   prometheusremotewrite:
