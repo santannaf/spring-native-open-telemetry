@@ -2,12 +2,12 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     java
-    id("org.springframework.boot") version "3.4.5"
+    id("org.springframework.boot") version "3.5.3"
     id("io.spring.dependency-management") version "1.1.7"
     id("org.graalvm.buildtools.native") version "0.10.6"
 
-    kotlin("jvm") version "2.0.10"
-    kotlin("plugin.spring") version "2.0.10"
+    kotlin("jvm") version "2.0.21"
+    kotlin("plugin.spring") version "2.0.21"
 }
 
 group = "santannaf.demo.spring-native.open-telemetry"
@@ -25,9 +25,9 @@ repositories {
 
 dependencyManagement {
     imports {
-        mavenBom("io.opentelemetry:opentelemetry-bom:1.48.0")
-        mavenBom("io.opentelemetry.instrumentation:opentelemetry-instrumentation-bom:2.14.0")
-        mavenBom("io.micrometer:micrometer-tracing-bom:1.4.4")
+        mavenBom("io.opentelemetry:opentelemetry-bom:1.51.0")
+        mavenBom("io.opentelemetry.instrumentation:opentelemetry-instrumentation-bom:2.16.0")
+        mavenBom("io.micrometer:micrometer-tracing-bom:1.5.0")
     }
 }
 
@@ -45,11 +45,12 @@ dependencies {
 
     // Traces
     implementation("io.opentelemetry:opentelemetry-exporter-otlp")
+    implementation("io.opentelemetry:opentelemetry-extension-kotlin")
 
     // Traces and some metrics
 //    implementation("io.opentelemetry.instrumentation:opentelemetry-spring-boot-starter")
 //    implementation("io.opentelemetry.contrib:opentelemetry-samplers:1.45.0-alpha")
-//    implementation("io.opentelemetry:opentelemetry-extension-kotlin")
+
 
     // Unit Tests
     testImplementation("org.springframework.boot:spring-boot-starter-test")

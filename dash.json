@@ -519,6 +519,120 @@
       ],
       "title": "Response Latency",
       "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "always",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "area"
+            }
+          },
+          "decimals": 3,
+          "mappings": [],
+          "max": 1,
+          "min": 0,
+          "noValue": "-",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "semi-dark-red"
+              },
+              {
+                "color": "semi-dark-orange",
+                "value": 0.5
+              },
+              {
+                "color": "semi-dark-yellow",
+                "value": 0.7
+              },
+              {
+                "color": "semi-dark-green",
+                "value": 0.85
+              },
+              {
+                "color": "dark-blue",
+                "value": 0.95
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 13,
+        "w": 5,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "(\n    sum(rate(http_server_requests_milliseconds_bucket{service_name=\"spring-native-open-telemetry\", le=\"500\", http_status_code!~\"5...\"}[$__rate_interval]))\n    +\n    0.5 * (\n      sum(rate(http_server_requests_milliseconds_bucket{service_name=\"spring-native-open-telemetry\", le=\"2000\", http_status_code!~\"5...\"}[$__rate_interval]))\n      -\n      sum(rate(http_server_requests_milliseconds_bucket{service_name=\"spring-native-open-telemetry\", le=\"500\", http_status_code!~\"5...\"}[$__rate_interval])) \n    )\n) / \nsum(rate(http_server_requests_milliseconds_count{service_name=\"spring-native-open-telemetry\"}[$__rate_interval]))\n\n\n",
+          "instant": false,
+          "legendFormat": "AppDex",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "AppDex",
+      "type": "timeseries"
     }
   ],
   "preload": false,

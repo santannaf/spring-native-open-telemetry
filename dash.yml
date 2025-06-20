@@ -53,3 +53,17 @@ dashboard:
         - merge
         - organize fields
         - sort
+
+
+#  (
+#  sum(rate(http_server_requests_milliseconds_bucket{service_name="spring-native-open-telemetry", le="500", http_status_code!~"5..."}[$__rate_interval]))
+#  +
+#  0.5 * (
+#  sum(rate(http_server_requests_milliseconds_bucket{service_name="spring-native-open-telemetry", le="2000", http_status_code!~"5..."}[$__rate_interval]))
+#-
+#  sum(rate(http_server_requests_milliseconds_bucket{service_name="spring-native-open-telemetry", le="500", http_status_code!~"5..."}[$__rate_interval]))
+#  )
+#  ) /
+#  sum(rate(http_server_requests_milliseconds_count{service_name="spring-native-open-telemetry"}[$__rate_interval]))
+
+
