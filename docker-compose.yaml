@@ -1,4 +1,5 @@
 version: '3.5'
+name: opentelemetry
 services:
   collector:
     container_name: collector
