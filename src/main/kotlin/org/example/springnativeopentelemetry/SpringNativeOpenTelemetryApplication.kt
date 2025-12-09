@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import org.slf4j.LoggerFactory
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
+import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
 import org.springframework.core.ParameterizedTypeReference
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
@@ -21,10 +23,9 @@ data class PostResponse(val id: Int, val title: String, val body: String)
 
 @RestController
 class Controller(
-    private val restClientBuilder: RestClient.Builder
+    private val restClient: RestClient
 ) {
     private val logger = LoggerFactory.getLogger(this.javaClass)
-    private val restClient = restClientBuilder.baseUrl("http://localhost:30001").build()
 
     @GetMapping("/ping")
     fun ping(): List<PostResponse> {
@@ -34,6 +35,17 @@ class Controller(
             .retrieve()
             .body(object : ParameterizedTypeReference<List<PostResponse>>() {}) ?: emptyList()
     }
+}
+
+@Configuration
+class RestConfiguration {
+    @Bean
+    fun restClient(builder: RestClient.Builder): RestClient {
+        return builder
+            .baseUrl("http://localhost:30001")
+            .build()
+    }
+
 }
 
 //@Configuration
