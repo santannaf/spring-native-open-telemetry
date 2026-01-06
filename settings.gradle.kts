@@ -1,2 +1,2 @@
 rootProject.name = "spring-native-open-telemetry"
-include("gattling")
+//include("gattling")
